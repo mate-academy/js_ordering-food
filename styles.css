@@ -1,0 +1,12 @@
+body, ul {
+    padding: 0;
+    text-align: center;
+}
+
+li {
+    list-style-type: none;
+}
+
+.active {
+    color: red;
+}
