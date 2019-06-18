@@ -70,14 +70,17 @@ function render() {
     }
   }
   
+  const buttonUp = document.getElementById('up');
+  const buttonDown = document.getElementById('down');
+  
   if(state.index > 0 && state.index < state.items.length - 1) {
     document.querySelectorAll('button').forEach(item => item.disabled = false);
     } else if(state.index === 0) {
-      document.getElementById('up').disabled = true;
-      document.getElementById('down').disabled = false;
+      buttonUp.disabled = true;
+      buttonDown.disabled = false;
     } else if(state.index === state.items.length - 1)  {
-      document.getElementById('down').disabled = true;
-      document.getElementById('up').disabled = false;
+      buttonDown.disabled = true;
+      buttonUp.disabled = false;
     } 
 
   document.body.addEventListener('click', (event) => {
