@@ -1,0 +1,106 @@
+body {
+  background: rgb(252, 242, 210);
+}
+
+h1 {
+  color: salmon;
+  font-family: 'Mali', cursive;
+  font-size: 45px;
+}
+.container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  font-size: 20px;
+  width: 30%;
+  display: block;
+  margin: 20px auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 10px dashed burlywood;
+  border-radius: 5px;
+  background: white url('./images/horiz.png') 50% 55%;
+  background-size: 450px 450px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.selected {
+  color: salmon;
+}
+
+li > div {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.Apple {
+  background: url('./images/apple.jpg');
+  background-size: 30px 30px;
+}
+
+.Bread {
+  background: url('./images/bread.jpg');
+  background-size: 30px 30px;
+} 
+
+.Carrot {
+  background: url('./images/carrot.jpg');
+  background-size: 30px 30px;
+} 
+
+.Dumplings {
+  background: url('./images/dumplings.jpg');
+  background-size: 30px 30px;
+} 
+
+.Eggs {
+  background: url('./images/eggs.jpg');
+  background-size: 30px 30px;
+} 
+.Fish {
+  background: url('./images/fish.jpg');
+  background-size: 30px 30px;
+} 
+.Garlic {
+  background: url('./images/garlic.jpg');
+  background-size: 30px 30px;
+} 
+.Honey {
+  background: url('./images/honey.jpg');
+  background-size: 30px 30px;
+} 
+.Ice {
+  background: url('./images/ice.jpg');
+  background-size: 30px 30px; 
+} 
+.Jam {
+  background: url('./images/jam.jpg');
+  background-size: 30px 30px;
+}
+
+button {
+  width: 110px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  background: salmon;
+  outline: none;
+}
+
+button:hover:enabled {
+  box-shadow: 0 0 10px 0 gray;
+}
+
+button:enabled {
+  cursor: pointer;
+}
