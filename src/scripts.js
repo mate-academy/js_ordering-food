@@ -72,7 +72,7 @@ function render() {
   
   const buttonUp = document.getElementById('up');
   const buttonDown = document.getElementById('down');
-  
+
   if(state.index > 0 && state.index < state.items.length - 1) {
     document.querySelectorAll('button').forEach(item => item.disabled = false);
     } else if(state.index === 0) {
@@ -81,7 +81,10 @@ function render() {
     } else if(state.index === state.items.length - 1)  {
       buttonDown.disabled = true;
       buttonUp.disabled = false;
-    } 
+    } else {
+      buttonDown.disabled = true;
+      buttonUp.disabled = true;
+    }
 
   document.body.addEventListener('click', (event) => {
     if(event.target.nodeName!=="LI" && event.target.nodeName!=="BUTTON") {
