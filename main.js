@@ -1,7 +1,11 @@
 const ul = document.getElementById('ul');
 const moveUpButton = document.getElementById('moveUp');
 const moveDownButton = document.getElementById('moveDown');
-let InitialState = {
+const MOVE_UP = 'moveUp';
+const MOVE_DOWN = 'MoveDown';
+const CHOOSE_FOOD = 'chooseFood';
+const REMOVE_CHOSEN_FOOD = 'removeChosenFood';
+const initialState = {
     foods: [
         'Apple',
         'Bread',
@@ -14,128 +18,110 @@ let InitialState = {
         'Ice cream',
         'Jam'
     ],
-    currentFoodName: null,
     currentFoodIndex: null,
-    isDisabledMoveUp: true,
-    isDisableMoveDown: true,
 };
 
-const actionMoveUp = {
-    type: 'moveUp'
-};
-
-const actionMoveDown = {
-    type: 'MoveDown'
-};
-
-const actionChooseFood = (chosenFoodName) => {
+const actionMoveUp = () => {
     return {
-        type: 'chooseFood',
-        chosenFoodName,
+        type: MOVE_UP
+    }
+};
+
+const actionMoveDown = () => {
+    return {
+        type: MOVE_DOWN
+    }
+};
+
+const actionChooseFood = payload => {
+    return {
+        type: CHOOSE_FOOD,
+        payload ,
     }
 };
 
 const actionRemoveChosenFood = () => {
     return {
-        type: 'removeChosenFood',
+        type: REMOVE_CHOSEN_FOOD,
     }
 };
 
-function getNextState(state = InitialState, action) {
-    let newState;
+function reducer(state = initialState, action) {
     let chosenFoodName;
 
     switch(action.type) {
-        case 'chooseFood' :
-            newState = {
+        case CHOOSE_FOOD :
+            return {
                 foods: state.foods,
-                currentFoodName: action.chosenFoodName,
-                currentFoodIndex: state.foods.indexOf(action.chosenFoodName),
-                isDisabledMoveUp: state.foods.indexOf(action.chosenFoodName) === 0,
-                isDisableMoveDown: state.foods.indexOf(action.chosenFoodName) === 9,
+                currentFoodIndex: action.payload,
             };
-            break;
-        case 'moveUp' :
+        case MOVE_UP :
             chosenFoodName = state.foods.splice(state.currentFoodIndex, 1).join();
             state.foods.splice(state.currentFoodIndex - 1, 0, chosenFoodName);
 
-            newState = {
-                currentFoodName: chosenFoodName,
+            return {
                 currentFoodIndex: state.foods.indexOf(chosenFoodName),
                 foods: state.foods,
-                isDisabledMoveUp: state.foods.indexOf(state.currentFoodName) === 0,
-                isDisableMoveDown: state.foods.indexOf(state.currentFoodName) === 9,
             };
-            break;
-        case 'MoveDown' :
+        case MOVE_DOWN :
             chosenFoodName = state.foods.splice(state.currentFoodIndex, 1).join();
             state.foods.splice(state.currentFoodIndex + 1, 0, chosenFoodName);
 
-            newState = {
-                currentFoodName: chosenFoodName,
+            return {
                 currentFoodIndex: state.foods.indexOf(chosenFoodName),
                 foods: state.foods,
-                isDisabledMoveUp: state.foods.indexOf(state.currentFoodName) === 0,
-                isDisableMoveDown: state.foods.indexOf(state.currentFoodName) === 9,
             };
-            break;
-        case 'removeChosenFood':
-            newState = {
+        case REMOVE_CHOSEN_FOOD:
+            return {
                 foods: state.foods,
-                currentFoodName: null,
                 currentFoodIndex: null,
-                isDisabledMoveUp: true,
-                isDisableMoveDown: true,
             };
-            break;
         default :
-            newState = state;
+            return  state;
     }
-
-    return newState;
 }
 
-function showFoods() {
-    const activeItem = store.getState().currentFoodName;
+function render() {
+    const { currentFoodIndex, foods } = store.getState();
     const container = ul;
 
     while(container.firstChild) {
         ul.removeChild(container.firstChild);
     }
 
-    store.getState().foods.forEach(food => {
+    foods.forEach((food, index) => {
         const span = document.createElement('span');
         const li = document.createElement('li');
 
-        if (activeItem === food) {
+        span.addEventListener('click', () => store.dispatch(actionChooseFood(index)));
+
+        if (currentFoodIndex === index) {
             span.setAttribute('class', 'active');
         }
 
         span.textContent = food;
+
         li.appendChild(span);
         ul.appendChild(li)
     });
 
-    moveUpButton.disabled = store.getState().isDisabledMoveUp;
-    moveDownButton.disabled = store.getState().isDisableMoveDown;
+    const isCurrentFoodIndex = currentFoodIndex === null;
+
+    moveUpButton.disabled = currentFoodIndex === 0 || isCurrentFoodIndex;
+    moveDownButton.disabled = currentFoodIndex === 9 || isCurrentFoodIndex;
 }
 
-const store = Redux.createStore(getNextState);
+const store = Redux.createStore(reducer);
 
 store.subscribe(() => {
-    showFoods();
+    render();
 });
 
-document.addEventListener('load', showFoods());
-ul.addEventListener('click', (event) => {
-    if (event.target.nodeName === 'SPAN') {
-        return store.dispatch(actionChooseFood(event.target.innerText));
+moveUpButton.addEventListener('click', () => store.dispatch(actionMoveUp()));
+moveDownButton.addEventListener('click', () => store.dispatch(actionMoveDown()));
+document.addEventListener('load', render());
+document.addEventListener('click', (event) => {
+    if (event.target.nodeName !== 'SPAN'&& event.target.nodeName !== 'BUTTON') {
+        store.dispatch(actionRemoveChosenFood());
     }
-
-    store.dispatch(actionRemoveChosenFood());
 });
-moveUpButton.addEventListener('click', () => store.dispatch(actionMoveUp));
-moveDownButton.addEventListener('click', () => store.dispatch(actionMoveDown));
-
-moveUpButton.disabled = store.getState().isDisabledMoveUp;
-moveDownButton.disabled = store.getState().isDisableMoveDown;
