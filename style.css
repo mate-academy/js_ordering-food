@@ -1,0 +1,30 @@
+body {
+  height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  width: 150px;
+}
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.active {
+  background: #ee8;
+  color: red;
+}
+
+.button-up{
+  transition: 0.7s;
+  border-radius: 20%;
+    width: 50px;
+}
+
+.button-down{
+  transition: 0.7s;
+  border-radius: 20%;
+  width: 50px;
+}
