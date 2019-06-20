@@ -9,7 +9,7 @@ const initialState = {
   index: null,
 };
 
-const chooseItem = index => {
+const chooseItem = (index) => {
 	return {
 		type: 'choose_item',
 		index
@@ -110,7 +110,7 @@ function renderList() {
 	} 
 }
 
-document.addEventListener('click', event => {
+document.addEventListener('click', (event) => {
 	if (!event.target.closest('button') && !event.target.closest('li')) {
 		store.dispatch(exitFromOrdering());
 	}
