@@ -130,11 +130,10 @@ function render() {
   }
 }
 
-document.addEventListener('click', ()=> {
+document.addEventListener('click', () => {
   store.dispatch(clearSelection());
 })
 
 store.subscribe(() => render());
 render();
 console.log(store)
-
