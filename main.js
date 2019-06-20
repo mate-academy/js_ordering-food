@@ -1,5 +1,3 @@
-// import * as Redux from './redux.min';
-
 const foodList = [
   {item: 'Apple'},
   {item: 'Bread'},
