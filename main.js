@@ -33,7 +33,7 @@ function getNextState(state = initialState, action) {
       return {
         ...state,
         items: newArr1,
-        index: state.index - action.index
+        index: state.index - action.index,
       };
     case 'item_down':
       const newArr2 = [...state.items];
@@ -41,37 +41,37 @@ function getNextState(state = initialState, action) {
       return {
         ...state,
         items: newArr2,
-        index: state.index - action.index
+        index: state.index - action.index,
       };
     case 'selected_item':
       return {
         ...state,
-        index: action.index
+        index: action.index,
       };
     default:
       return state;
   }
 }
 
-store = Redux.createStore(getNextState);
+const store = Redux.createStore(getNextState);
 
 document.querySelector('.button-up').addEventListener('click', (event) => {
   const state = store.getState();
   if (state.index !== 0) {
-    store.dispatch(itemUp(+1))
+    store.dispatch(itemUp(+1));
   }
 })
 
 document.querySelector('.button-down').addEventListener('click', (event) => {
   const state = store.getState();
   if (state.index !== state.items.length -1 && state.index !== null) {
-    store.dispatch(itemDown(-1))
+    store.dispatch(itemDown(-1));
   }
 })
 
 document.querySelector('.list').addEventListener('click', (event) => {
     const state = store.getState();
-    store.dispatch(selectedItem(state.items.indexOf(event.target.textContent)))
+    store.dispatch(selectedItem(state.items.indexOf(event.target.textContent)));
 })
 
 document.body.addEventListener('click', (event) => {
@@ -99,15 +99,15 @@ function buttonsActive() {
     }
 
   if (!buttonUp.disabled) {
-    buttonUp.classList.add('active')
+    buttonUp.classList.add('active');
   } else {
-    buttonUp.classList.remove('active')
+    buttonUp.classList.remove('active');
   }
 
   if (!buttonDown.disabled) {
-    buttonDown.classList.add('active')
+    buttonDown.classList.add('active');
   } else {
-    buttonDown.classList.remove('active')
+    buttonDown.classList.remove('active');
   }
 }
 
@@ -122,13 +122,13 @@ function render() {
     if(state.items.indexOf(listItem.textContent) === state.index && state.index !== null) {
       listItem.className = 'active';
     }
-    list.append(listItem)
+    list.append(listItem);
   }
 }
 
 store.subscribe(() => {
-  render()
-  buttonsActive()
+  render();
+  buttonsActive();
 })
-render()
-buttonsActive()
+render();
+buttonsActive();
