@@ -1,5 +1,9 @@
 'use strict';
 
+const ORDER = 'order';
+const UP = 'up';
+const DOWN = 'down';
+
 let initialState = {
   items: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam'],
   itemMove: '',
@@ -13,25 +17,52 @@ Array.prototype.move = function (index, step) {
   return this
 };
 
-function getNextState(state=initialState, action) {
+function order(item) {
+  return {
+    type: ORDER,
+    itemMove: item,
+  }
+}
+
+function moveUp(items, index) {
+  const newItems = [...items];
+  newItems.move(index, -1);
+  return {
+    type: UP,
+    items: newItems,
+    index: index - 1,
+  }
+}
+
+function moveDown(items, index) {
+  const newItems = [...items];
+  newItems.move(index, 1);
+  return {
+    type: DOWN,
+    items: newItems,
+    index: index + 1,
+  }
+}
+
+function getNextState(state = initialState, action) {
   switch (action.type) {
-    case 'order':
+    case ORDER:
       return {
         ...state,
         itemMove: action.itemMove,
         index: state.items.indexOf(action.itemMove)
       }
-    case 'up':
+    case UP:
       return {
         ...state,
-        items: state.items.move(state.index, -1),
-        index: state.items.indexOf(state.itemMove),
+        items: action.items,
+        index: action.index,
       };
-    case 'down':
+    case DOWN:
       return {
         ...state,
-        items: state.items.move(state.index, 1),
-        index: state.items.indexOf(state.itemMove),   
+        items: action.items,
+        index: action.index,  
       };
     default:
       return state;
@@ -40,36 +71,9 @@ function getNextState(state=initialState, action) {
 
 const store = Redux.createStore(getNextState, initialState);
 
-document.getElementById('up').addEventListener('click', (event) => {
-  store.dispatch({type: 'up'});
-});
-
-document.getElementById('down').addEventListener('click', (event) => {
-  store.dispatch({type: 'down'});
-});
-
 function render() {
+
   const state = store.getState();
-  console.log(state)
-  const list = document.getElementById('list');
-  list.innerHTML = '';
-  for (let i = 0; i < state.items.length; i++) {
-    const item = state.items[i];
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `<div class="${item}"></div> ${item}`;
-    listItem.addEventListener('click', (event) => {
-      console.log(event.target)
-      store.dispatch({
-        type: 'order',
-        itemMove: item
-      });  
-    })
-    list.append(listItem);
-    if(item === state.itemMove) {
-      listItem.classList.add('selected')
-    }
-  }
-  
   const buttonUp = document.getElementById('up');
   const buttonDown = document.getElementById('down');
 
@@ -85,6 +89,29 @@ function render() {
       buttonDown.disabled = true;
       buttonUp.disabled = true;
     }
+
+  buttonUp.addEventListener('click', (event) => {
+    store.dispatch(moveUp(state.items, state.index));
+  });
+
+  buttonDown.addEventListener('click', (event) => {
+    store.dispatch(moveDown(state.items, state.index));
+  });
+
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  for (let i = 0; i < state.items.length; i++) {
+    const item = state.items[i];
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<div class="${item}"></div> ${item}`;
+    listItem.addEventListener('click', (event) => {
+      store.dispatch(order(item));  
+    })
+    list.append(listItem);
+    if(item === state.itemMove) {
+      listItem.classList.add('selected')
+    }
+  }
 
   document.body.addEventListener('click', (event) => {
     if(event.target.nodeName!=="LI" && event.target.nodeName!=="BUTTON") {
