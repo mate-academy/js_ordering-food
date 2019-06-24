@@ -6,7 +6,7 @@ const upMoveButton = document.getElementById('moveUp');
 const moveDownButton = document.getElementById('moveDown');
 
 export function render() {
-    const {currentFoodIndex, foods} = store.getState();
+    const { currentFoodIndex, foods } = store.getState();
 
     while (container.firstChild) {
         container.removeChild(container.firstChild);
