@@ -1,5 +1,4 @@
-import { SELECT_ITEM, CLEAR_SELECTION, MOVE_SELECTION_UP, MOVE_SELECTION_DOWN } from './actions';
-
+// import { SELECT_ITEM, CLEAR_SELECTION, MOVE_SELECTION_UP, MOVE_SELECTION_DOWN } from './actions';
 const food = [
   { name: 'Apple' },
   { name: 'Bread' },
