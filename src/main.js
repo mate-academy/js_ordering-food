@@ -22,21 +22,19 @@ const MOVE_DOWN = 'MOVE_DOWN';
 function selected(index) {
   return {
     type: SELECTED,
-    index
+    payload: { index }
   };
 };
 function moveUp(foods, index) {
   return {
     type: MOVE_UP,
-    foods,
-    index
+    payload: { foods, index }
   };
 }
 function moveDown(foods, index) {
   return {
     type: MOVE_DOWN,
-    foods,
-    index
+    payload: { foods, index }
   };
 }
 
@@ -58,30 +56,27 @@ const addButtons = function () {
 document.addEventListener('click', () => {
   if (event.target.tagName !== 'LI' && event.target.tagName !== 'BUTTON') {
     store.dispatch(selected(null));
-    btnDisabler(store.getState().selectedIndex);
-  }
-  if (event.target.tagName === 'LI') {
+    btnDisabled(store.getState().selectedIndex);
+  } else if (event.target.tagName === 'LI') {
     const index = store.getState()['orderFoods']
       .findIndex(item => item === event.target.innerText);
     store.dispatch(selected(index));
-    btnDisabler(store.getState().selectedIndex);
+    btnDisabled(store.getState().selectedIndex);
   }
 })
 
-function btnDisabler(selectedIndex) {
+function btnDisabled(selectedIndex) {
+  const maxIndex = store.getState().orderFoods.length - 1
   if (selectedIndex === 0) {
     btnUp.disabled = true;
-  }
-  if (selectedIndex !== 0) {
-    btnUp.disabled = false;
-  }
-  if (selectedIndex === store.getState().orderFoods.length - 1) {
-    btnDown.disabled = true;
-  }
-  if (selectedIndex !== store.getState().orderFoods.length - 1) {
     btnDown.disabled = false;
-  }
-  if (selectedIndex === null) {
+  } else if (selectedIndex !== 0 && maxIndex) {
+    btnUp.disabled = false;
+    btnDown.disabled = false;
+  } else if (selectedIndex === maxIndex) {
+    btnUp.disabled = false;
+    btnDown.disabled = true;
+  } else if (selectedIndex === null) {
     btnDown.disabled = true;
     btnUp.disabled = true;
   }
@@ -93,19 +88,19 @@ function getNextState(state = initialState, action) {
     case SELECTED:
       newState = {
         ...state,
-        selectedIndex: action.index
+        selectedIndex: action.payload.index
       }
       return newState;
     case MOVE_DOWN:
       newState = {
-        orderFoods: action.foods,
-        selectedIndex: action.index
+        orderFoods: action.payload.foods,
+        selectedIndex: action.payload.index
       }
       return newState;
     case MOVE_UP:
       newState = {
-        orderFoods: action.foods,
-        selectedIndex: action.index
+        orderFoods: action.payload.foods,
+        selectedIndex: action.payload.index
       }
       return newState;
     default:
@@ -126,7 +121,7 @@ btnDown.addEventListener('click', () => {
   store.dispatch(moveDown(foods, index + 1));
   list.innerHTML = '';
   showList(list, store.getState().orderFoods);
-  btnDisabler(store.getState().selectedIndex);
+  btnDisabled(store.getState().selectedIndex);
 });
 
 btnUp.addEventListener('click', () => {
@@ -137,11 +132,7 @@ btnUp.addEventListener('click', () => {
   store.dispatch(moveUp(foods, index - 1));
   list.innerHTML = '';
   showList(list, store.getState().orderFoods);
-  btnDisabler(store.getState().selectedIndex);
+  btnDisabled(store.getState().selectedIndex);
 });
 
 const store = Redux.createStore(getNextState);
-
-store.subscribe(() => {
-  console.log(store.getState());
-})
