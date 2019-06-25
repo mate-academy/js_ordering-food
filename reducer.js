@@ -22,9 +22,6 @@ const initialState = {
 };
 
 export function reducer(state = initialState, action) {
-    let chosenFoodName;
-    let copyFoods;
-
     switch (action.type) {
         case FOOD_CHOOSE :
             return {
@@ -32,21 +29,21 @@ export function reducer(state = initialState, action) {
                 currentFoodIndex: action.payload,
             };
         case UP_MOVE :
-            copyFoods = state.foods.slice();
-            chosenFoodName = copyFoods.splice(state.currentFoodIndex, 1).join();
-            copyFoods.splice(state.currentFoodIndex - 1, 0, chosenFoodName);
+            const copyFoods = state.foods.slice();
+            const selectedFoodName = copyFoods.splice(state.currentFoodIndex, 1).join();
+            copyFoods.splice(state.currentFoodIndex - 1, 0, selectedFoodName);
 
             return {
                 currentFoodIndex: state.currentFoodIndex - 1,
                 foods: copyFoods,
             };
         case DOWN_MOVE :
-            copyFoods = state.foods.slice();
-            chosenFoodName = copyFoods.splice(state.currentFoodIndex, 1).join();
-            copyFoods.splice(state.currentFoodIndex + 1, 0, chosenFoodName);
+            const newCopyFoods = state.foods.slice();
+            const chosenFoodName = newCopyFoods.splice(state.currentFoodIndex, 1).join();
+            newCopyFoods.splice(state.currentFoodIndex + 1, 0, chosenFoodName);
             return {
                 currentFoodIndex: state.currentFoodIndex + 1,
-                foods: copyFoods,
+                foods: newCopyFoods,
             };
         case CHOSEN_FOOD_REMOVE:
             return {

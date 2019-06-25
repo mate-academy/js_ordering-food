@@ -5,13 +5,13 @@ import {
     CHOSEN_FOOD_REMOVE,
 } from './constants.js';
 
-export const upMove = () => {
+export const moveUp = () => {
     return {
         type: UP_MOVE
     };
 };
 
-export const downMove = () => {
+export const moveDown = () => {
     return {
         type: DOWN_MOVE
     };
