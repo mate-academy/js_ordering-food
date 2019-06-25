@@ -1,7 +1,7 @@
-const MOVE_UP = "move_up";
-const MOVE_DOWN = "move_down";
-const SELECT_ELEMENT = "select_element";
-const CANCEL_SELECT_ELEMENT = "CANCEL_SELECTELEMENT";
+const MOVE_UP = "MOVE_UP";
+const MOVE_DOWN = "MOVE_DOWN";
+const SELECT_ELEMENT = "SELECT_ELEMENT";
+const CANCEL_SELECT_ELEMENT = "CANCEL_SELECTED_ELEMENT";
 
 let initialState = {
   foods: [
@@ -73,7 +73,7 @@ function render() {
   foodCourt.innerHTML = "";
 
   const { foods, selectedIndex } = store.getState();
-  
+
   document.getElementById("up").disabled =
     selectedIndex === null || selectedIndex === 0;
 
