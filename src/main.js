@@ -67,22 +67,14 @@ document.addEventListener('click', () => {
 
 function btnDisabled(selectedIndex) {
   const maxIndex = store.getState().orderFoods.length - 1
-  if (selectedIndex === 0) {
-    btnUp.disabled = true;
-  }
-  if (selectedIndex !== 0 && selectedIndex !== null) {
-    btnUp.disabled = false;
-  }
-  if (selectedIndex === maxIndex) {
-    btnDown.disabled = true;
-  }
-  if (selectedIndex !== maxIndex && selectedIndex !== null) {
-    btnDown.disabled = false;
-  }
-  if (selectedIndex === null) {
-    btnDown.disabled = true;
-    btnUp.disabled = true;
-  }
+  const isUpDisabled = selectedIndex === null || selectedIndex === 0;
+  const isDownDisabled = selectedIndex === null || selectedIndex === maxIndex;
+  isUpDisabled
+    ? upButton.setAttribute('disabled', 'disabled')
+    : upButton.removeAttribute('disabled');
+  isDownDisabled
+    ? downButton.setAttribute('disabled', 'disabled')
+    : downButton.removeAttribute('disabled');
 }
 
 function getNextState(state = initialState, action) {
@@ -113,29 +105,34 @@ function getNextState(state = initialState, action) {
 
 showList(list, initialState.orderFoods);
 addButtons();
-const btnUp = document.getElementById('btn-up');
-const btnDown = document.getElementById('btn-down');
+const upButton = document.getElementById('btn-up');
+const downButton = document.getElementById('btn-down');
 
-btnDown.addEventListener('click', () => {
+function getMoveInfo() {
   const foods = [...store.getState()['orderFoods']];
   const index = store.getState().selectedIndex;
   const item = foods.splice(index, 1);
+  return [foods, index, item];
+}
+
+function showResultMovement() {
+  list.innerHTML = '';
+  showList(list, store.getState().orderFoods);
+  btnDisabled(store.getState().selectedIndex);
+}
+
+downButton.addEventListener('click', () => {
+  const [foods, index, item] = getMoveInfo()
   foods.splice(index + 1, 0, item[0]);
   store.dispatch(moveDown(foods, index + 1));
-  list.innerHTML = '';
-  showList(list, store.getState().orderFoods);
-  btnDisabled(store.getState().selectedIndex);
+  showResultMovement()
 });
 
-btnUp.addEventListener('click', () => {
-  const foods = [...store.getState()['orderFoods']];
-  const index = store.getState().selectedIndex;
-  const item = foods.splice(index, 1);
+upButton.addEventListener('click', () => {
+  const [foods, index, item] = getMoveInfo()
   foods.splice(index - 1, 0, item[0]);
   store.dispatch(moveUp(foods, index - 1));
-  list.innerHTML = '';
-  showList(list, store.getState().orderFoods);
-  btnDisabled(store.getState().selectedIndex);
+  showResultMovement()
 });
 
 const store = Redux.createStore(getNextState);
