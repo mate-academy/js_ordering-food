@@ -69,14 +69,17 @@ function btnDisabled(selectedIndex) {
   const maxIndex = store.getState().orderFoods.length - 1
   if (selectedIndex === 0) {
     btnUp.disabled = true;
-    btnDown.disabled = false;
-  } else if (selectedIndex !== 0 && maxIndex) {
+  }
+  if (selectedIndex !== 0 && selectedIndex !== null) {
     btnUp.disabled = false;
-    btnDown.disabled = false;
-  } else if (selectedIndex === maxIndex) {
-    btnUp.disabled = false;
+  }
+  if (selectedIndex === maxIndex) {
     btnDown.disabled = true;
-  } else if (selectedIndex === null) {
+  }
+  if (selectedIndex !== maxIndex && selectedIndex !== null) {
+    btnDown.disabled = false;
+  }
+  if (selectedIndex === null) {
     btnDown.disabled = true;
     btnUp.disabled = true;
   }
