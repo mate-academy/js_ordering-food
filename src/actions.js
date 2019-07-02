@@ -5,7 +5,6 @@ const MOVE_DOWN = 'foods_move_down';
 const SELECT_FOOD = 'foods_selected';
 const CANCEL_SELECT_FOOD = 'foods_cancel_selected';
 
-
 function getMoveUpAction(index) {
     return {
         type: MOVE_UP

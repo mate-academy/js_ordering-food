@@ -13,3 +13,7 @@ button {
 .down {
   margin-right: 500px;
 }
+
+.selected {
+  background-color: #00ff00;
+}
