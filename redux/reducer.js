@@ -1,4 +1,4 @@
-import { SELECT_ITEM, UNSELECT_ITEM, MOVE_ITEM_UP, MOVE_ITEM_DOWN } from './action';
+import { SELECT_ITEM, UNSELECT_ITEM, MOVE_ITEM_UP, MOVE_ITEM_DOWN } from './action.js';
 
 const initialState = {
   selectedItem: null,
@@ -27,8 +27,8 @@ export function reducer(state = initialState, { type, payload }) {
         selectedItem: state.selectedItem + 1
       };
     case MOVE_ITEM_DOWN:
-      const newItemList = [...state.itemList];
-      const removedItem = newItemList.splice(state.selectedItem, 1);
+      newItemList = [...state.itemList];
+      removedItem = newItemList.splice(state.selectedItem, 1);
       newItemList.splice(state.selectedItem + 1, 0, removedItem)
       return {
         ...state,
