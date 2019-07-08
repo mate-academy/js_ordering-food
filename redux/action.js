@@ -4,7 +4,6 @@ export const MOVE_ITEM_UP = 'moveItemUp';
 export const MOVE_ITEM_DOWN = 'moveItemDown';
 
 export const selectItem = (index) => {
-  console.log(index)
   return {
     type: SELECT_ITEM,
     payload: index
