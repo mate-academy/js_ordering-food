@@ -9,5 +9,14 @@ store.subscribe(render);
 render();
 
 function render() {
-  console.log('render')
+  //console.log(store.getState().selectedItem)
+  const itemList = store.getState().itemList;
+  const ul = document.createElement('ul');
+  itemList.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerText = item;
+    li.addEventListener('click', () => store.dispatch(() => selectItem(index)))
+    ul.append(li);
+  }); 
+  root.append(ul);
 }

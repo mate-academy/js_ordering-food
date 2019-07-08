@@ -5,12 +5,13 @@ const initialState = {
   itemList: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam']
 }
 
-export function reducer(state = initialState, { type, payload }) {
-  switch (type) {
+export function reducer(state = initialState, action) {
+  console.log(state, action)
+  switch (action.type) {
     case SELECT_ITEM:
       return {
         ...state,
-        selectedItem: payload
+        selectedItem: action.payload
       };
     case UNSELECT_ITEM:
       return {

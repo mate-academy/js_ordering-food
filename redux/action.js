@@ -3,7 +3,8 @@ export const UNSELECT_ITEM = 'unselectItem';
 export const MOVE_ITEM_UP = 'moveItemUp';
 export const MOVE_ITEM_DOWN = 'moveItemDown';
 
-export function selectItem(index) {
+export const selectItem = (index) => {
+  console.log(index)
   return {
     type: SELECT_ITEM,
     payload: index
