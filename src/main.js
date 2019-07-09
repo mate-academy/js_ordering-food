@@ -72,15 +72,16 @@ moveUp.addEventListener('click', () => {
 });
 
 function render() {
-  console.log('ssss')
   const listItem = document.querySelector('#listItem');
   listItem.innerHTML = '';
 
   let foodItems = store.getState().foods;
   let index = store.getState().selectedFoodIndex;
 
-  moveDowm.disabled = index === foodItems.length - 1;
-  moveUp.disabled = index === 0;
+  if (index !== null) {
+    moveDowm.disabled = index === foodItems.length - 1;
+    moveUp.disabled = index === 0;
+  };
   
   for (let i = 0; i < foodItems.length; i++) {
     const li = document.createElement('li');
