@@ -23,7 +23,7 @@ function selectedIndexAction(index) {
   };
 };
 
-let initialState = {
+const initialState = {
   foods: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam'],
   selectedFoodIndex: null
 };
