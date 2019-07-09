@@ -23,9 +23,9 @@ function render() {
   }
   const { itemList, selectedItem } = store.getState();
 
-  unselect.disabled = selectedItem === null ? true : false;
-  up.disabled = selectedItem ? false : true;
-  down.disabled = selectedItem === itemList.length - 1 || selectedItem === null ? true : false;
+  unselect.disabled = selectedItem === null;
+  up.disabled = !selectedItem;
+  down.disabled = selectedItem === itemList.length - 1 || selectedItem === null;
 
   const ul = document.createElement('ul');
   itemList.forEach((item, index) => {
