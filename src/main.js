@@ -58,7 +58,7 @@ function getNextState(state = initialState, action) {
   };
 };
 
-let store = Redux.createStore(getNextState);
+const store = Redux.createStore(getNextState);
 
 const moveDowm = document.querySelector('#moveDown');
 const moveUp = document.querySelector('#moveUp');
@@ -75,8 +75,8 @@ function render() {
   const listItem = document.querySelector('#listItem');
   listItem.innerHTML = '';
 
-  let foodItems = store.getState().foods;
-  let index = store.getState().selectedFoodIndex;
+  const foodItems = store.getState().foods;
+  const index = store.getState().selectedFoodIndex;
 
   if (index !== null) {
     moveDowm.disabled = index === foodItems.length - 1;
