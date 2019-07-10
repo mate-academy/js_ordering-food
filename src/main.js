@@ -4,6 +4,14 @@ const MOVE_UP = 'move_up';
 const MOVE_DOWN = 'move_down';
 const SELECT_INDEX = 'selected_index'
 
+const body = document.querySelector('body');
+
+body.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'LI') {
+    store.dispatch(selectedIndexAction(null))
+  };
+})
+
 function moveUpAction() {
   return {
     type: MOVE_UP
@@ -78,16 +86,20 @@ function render() {
   const foodItems = store.getState().foods;
   const index = store.getState().selectedFoodIndex;
 
+
   if (index !== null) {
     moveDowm.disabled = index === foodItems.length - 1;
     moveUp.disabled = index === 0;
-  };
+  } else {
+    moveDowm.disabled = true;
+    moveUp.disabled = true;
+  }
   
   for (let i = 0; i < foodItems.length; i++) {
     const li = document.createElement('li');
     li.innerHTML = foodItems[i];
     li.addEventListener('click', (e) => {
-      store.dispatch(selectedIndexAction(i));
+      store.dispatch(selectedIndexAction(i));    
     });
     listItem.append(li);
   };
