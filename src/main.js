@@ -7,7 +7,7 @@ const SELECT_INDEX = 'selected_index'
 const body = document.querySelector('body');
 
 body.addEventListener('click', (e) => {
-  if (e.target.tagName !== 'LI') {
+  if (e.target.tagName !== 'LI' && e.target.tagName !== 'BUTTON') {
     store.dispatch(selectedIndexAction(null))
   };
 })
