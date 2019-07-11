@@ -7,18 +7,16 @@ const unselect = document.querySelector('#unselect');
 const up = document.querySelector('#up');
 const down = document.querySelector('#down');
 
+const store = createStore(reducer);
+store.subscribe(render);
+render();
+
 unselect.addEventListener('click', () => store.dispatch(unselectItem()));
 up.addEventListener('click', () => store.dispatch(moveItemUp()));
 down.addEventListener('click', () => store.dispatch(moveItemDown()));
 
-
-const store = createStore(reducer);
-
-store.subscribe(render);
-render();
-
 function render() {
-  while(root.firstElementChild) {
+  while (root.firstElementChild) {
     root.firstElementChild.remove();
   }
   const { itemList, selectedItem } = store.getState();
@@ -31,12 +29,13 @@ function render() {
   itemList.forEach((item, index) => {
     const li = document.createElement('li');
     li.innerText = item;
-    li.addEventListener('click', () => store.dispatch(selectItem(index)));
-    if (selectedItem === index) {
+    if (selectedItem !== index) {
+      li.addEventListener('click', () => store.dispatch(selectItem(index)));
+    } else if (selectedItem === index) {
       li.classList.add('active');
       li.addEventListener('click', () => store.dispatch(unselectItem()));
     }
     ul.append(li);
-  }); 
+  });
   root.append(ul);
 }

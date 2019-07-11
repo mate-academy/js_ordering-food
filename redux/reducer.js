@@ -6,8 +6,6 @@ const initialState = {
 }
 
 export function reducer(state = initialState, action) {
-  let newItemList;
-  let removedItem;
   switch (action.type) {
     case SELECT_ITEM:
       return {
@@ -19,24 +17,26 @@ export function reducer(state = initialState, action) {
         ...state,
         selectedItem: null
       }
-    case MOVE_ITEM_UP:
-      newItemList = [...state.itemList];
-      removedItem = newItemList.splice(state.selectedItem, 1);
+    case MOVE_ITEM_UP: {
+      const newItemList = [...state.itemList];
+      const removedItem = newItemList.splice(state.selectedItem, 1);
       newItemList.splice(state.selectedItem - 1, 0, removedItem)
       return {
         ...state,
         itemList: newItemList,
         selectedItem: state.selectedItem - 1
       };
-    case MOVE_ITEM_DOWN:
-      newItemList = [...state.itemList];
-      removedItem = newItemList.splice(state.selectedItem, 1);
+    }
+    case MOVE_ITEM_DOWN: {
+      const newItemList = [...state.itemList];
+      const removedItem = newItemList.splice(state.selectedItem, 1);
       newItemList.splice(state.selectedItem + 1, 0, removedItem)
       return {
         ...state,
         itemList: newItemList,
         selectedItem: state.selectedItem + 1
       };
+    }
     default:
       return state;
   }
