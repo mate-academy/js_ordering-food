@@ -1,4 +1,9 @@
 # Ordering food
+### ToDo list:
+
+
+ - [**Preview** ](https://andreas-just.github.io/js_ordering-food/)
+ - [**PullRequest**](https://github.com/Andreas-Just/js_ordering-food/pull/1/files)
 
 Here are 10 items of food: 
 
