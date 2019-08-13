@@ -3,7 +3,7 @@
 
 
  - [**Preview** ](https://andreas-just.github.io/js_ordering-food/)
- - [**PullRequest**](https://github.com/Andreas-Just/js_ordering-food/pull/1/files/)
+ - [**PullRequest**](https://github.com/mate-academy/js_ordering-food/pull/20/files)
 
 Here are 10 items of food: 
 
