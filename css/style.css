@@ -18,7 +18,7 @@ body {
   z-index: 1;
   margin: 0 auto 30px;
   padding: 5px 25px;
-  width: 40vw;
+  width: 30vw;
   list-style: none;
   text-align: left;
   background-color: white;
@@ -61,7 +61,7 @@ body {
   display: flex;
   justify-content: space-around;
   margin: auto;
-  width: 45vw;
+  width: 35vw;
 }
 .foods__btn {
   padding: 5px 20px 0;
