@@ -1,0 +1,24 @@
+.select-item {
+  color: white;
+  background-color: rgb(80, 80, 255);
+  border-radius: 5px;
+}
+
+ul {
+  padding: 0;
+  width: 10%;
+}
+
+li { 
+  text-align: center;
+  width: 100%;
+  list-style: none;
+  margin: 5px auto;
+  font-size: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
