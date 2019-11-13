@@ -1,68 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Ordering food
 
-## Available Scripts
+Here are 10 items of food: 
 
-In the project directory, you can run:
+- Apple
+- Bread
+- Carrot
+- Dumplings
+- Eggs
+- Fish
+- Garlic
+- Honey
+- Ice cream
+- Jam
 
-### `npm start`
+Make an app that would allow sorting them in an arbitrary order. It should work as follows:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. There are two buttons, "Move Up" and "Move Down". They are initially disabled.
+2. The user selects one of the food items by clicking on it. The buttons become enabled.
+3. By clicking "Move Up", the user moves the selected item one position up, and by clicking "Move Down", the user moves the item one position down. The item should not loose selection when moving. Once it’s become the topmost in the list, disable the "Move Up" button again. Similarly, when the last item on the list is selected, the "Move Down" button must become disabled. In other words, make buttons enabled if and only if clicking on them would have an effect.
+4. The user can then select and start moving a different item.
+5. When the user clicks outside the list, the active item must become unselected.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Create your project as a simple HTML page that uses Redux (link to [redux.min.js](redux.min.js)).
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+First decide what will be stored in your state, what types of actions you will use and what exact data the actions will include, if any. Then implement a reducer. After all that is done you can move on to writing the rest of the code.
