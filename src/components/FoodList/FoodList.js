@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 const FoodList = ({ foodList, currentIndex, clickDown, clickUp, clickOnFood }) => {
   const cancelStyle = (e) => {
-    console.log(e.target.nodeName)
     if (e.target.nodeName === 'LI' || e.target.nodeName === 'BUTTON' || e.target.nodeName === 'DIV') {
       return 
     } else {clickOnFood(-1)}
