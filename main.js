@@ -2,7 +2,6 @@ const MOVE_UP = "MOVE_UP";
 const MOVE_DOWN = "MOVE_DOWN";
 const SELECT = "SELECT";
 const UNSELECT = "UNSELECT";
-
 let initialState = {
   foods: [
     "Apple",
@@ -18,7 +17,7 @@ let initialState = {
   ],
   activeUpButton: false,
   activeDownButton: false,
-  selectedIndex: null
+  selectedIndex: null,
 };
 
 function controlElement(state = initialState, action) {
@@ -32,8 +31,7 @@ function controlElement(state = initialState, action) {
       ];
       return {
         foods: newFoodList,
-        selectedIndex: selectedIndex - 1
-      };
+        selectedIndex: selectedIndex - 1,};
 
     case MOVE_DOWN:
       [newFoodList[selectedIndex + 1], newFoodList[selectedIndex]] = [
@@ -82,6 +80,7 @@ function render() {
 
   for (let i = 0; i < foods.length; i++) {
     const newLi = document.createElement("li");
+    // newLi.setAttribute("id", "li-id");
     newLi.innerHTML = foods[i];
     newLi.addEventListener("click", event => {
       event.stopPropagation();
@@ -89,6 +88,7 @@ function render() {
         type: SELECT,
         index: i
       });
+      changeColor(store.getState().selectedIndex)
     });
     foodCourt.append(newLi);
   }
@@ -96,10 +96,16 @@ function render() {
 
 const store = Redux.createStore(controlElement);
 
+function changeColor(index) {
+  let changeColorItem = document.getElementsByTagName("li")[index];
+  changeColorItem.classList.add('color');
+}
+
 document.getElementById("up").addEventListener("click", () => {
   store.dispatch({
     type: MOVE_UP
   });
+  changeColor(store.getState().selectedIndex);
   event.stopPropagation();
 });
 
@@ -107,6 +113,7 @@ document.getElementById("down").addEventListener("click", () => {
   store.dispatch({
     type: MOVE_DOWN
   });
+  changeColor(store.getState().selectedIndex)
   event.stopPropagation();
 });
 
