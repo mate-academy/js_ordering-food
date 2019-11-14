@@ -80,7 +80,6 @@ function render() {
 
   for (let i = 0; i < foods.length; i++) {
     const newLi = document.createElement("li");
-    // newLi.setAttribute("id", "li-id");
     newLi.innerHTML = foods[i];
     newLi.addEventListener("click", event => {
       event.stopPropagation();
