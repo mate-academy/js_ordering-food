@@ -1,0 +1,46 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.item-list {
+  width: max-content;
+}
+
+.moveUp {
+  display: block;
+  width: 100px;
+  height: 50px;
+  margin: 50px 0;
+  background-color: dodgerblue;
+  border-radius: 10px;
+  outline: none;
+  position: absolute;
+  top: 200px;
+  right: 70px;
+}
+
+.moveUp:disabled {
+  color: #eeeeee;
+  background-color: lightseagreen;
+}
+
+.moveDown {
+  display: block;
+  width: 100px;
+  height: 50px;
+  margin: 50px 0;
+  background-color: dodgerblue;
+  border-radius: 10px;
+  outline: none;
+  position: absolute;
+  top: 200px;
+  left: 70px;
+}
+
+.moveDown:disabled {
+  color: #eeeeee;
+  background-color: lightseagreen;
+}
