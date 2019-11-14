@@ -57,29 +57,37 @@ function render(state, dispatch) {
   } 
   root.innerHTML = '';
   root.append(ul)
+
+  const moveUp = document.createElement('button');
+  moveUp.className = "moveUp";
+  moveUp.innerHTML = 'Move Up';
   if (state.selectedItem > 0) { 
-    const moveUp = document.createElement('button');
-    moveUp.className = "moveUp";
-    moveUp.innerHTML = 'Move Up';
     moveUp.addEventListener('click', () => store.dispatch({
       type: 'MOVEUP',
     }))
-    root.append(moveUp)
+  } else {
+    moveUp.disabled = true;
   }
-
+  root.append(moveUp)
+  const moveDown = document.createElement('button');
+  moveDown.className = "moveDown";
+  moveDown.innerHTML = 'Move Down';
   if (state.selectedItem < state.items.length - 1 && state.selectedItem !== -1) {
-    const moveDown = document.createElement('button');
-    moveDown.className = "moveDown";
-    moveDown.innerHTML = 'Move Down';
     moveDown.addEventListener('click', () => store.dispatch({
       type: 'MOVEDOWN',
     }))
-    root.append(moveDown);
+  } else {
+    moveDown.disabled = true;
   }
+  root.append(moveDown);
 }
 
 document.addEventListener('click', (event) => {
   if (event.target.closest('.item-list')) {
+    return;
+  } else if (event.target.closest('.moveUp')) {
+    return;
+  } else if (event.target.closest('.moveDown')) {
     return;
   }
   store.dispatch(store.dispatch({
