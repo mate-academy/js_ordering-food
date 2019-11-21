@@ -93,8 +93,8 @@ const buttonActive = () => {
     buttonUp.disabled = false;
     buttonDown.disabled = true;
   } else {
-    buttonUp.disabled = false;
-    buttonDown.disabled = false;
+    buttonUp.disabled = true;
+    buttonDown.disabled = true;
   }
 
   if (!buttonUp.disabled) {
