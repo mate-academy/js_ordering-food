@@ -5,44 +5,43 @@ const initialState = {
 
 const itemUp = (index) => {
   return {
-    type: 'item-up',
+    type: 'ITEM_UP',
     index
   }
 };
 
 const itemDown = (index) => {
   return {
-    type: 'item-down',
+    type: 'ITEM_DOWN',
     index
   }
 };
 
 const selectItem = (index) => {
   return {
-    type: 'select-item',
+    type: 'SELECT_ITEM',
     index
   }
 };
 
-const getNextState = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
+  const foodList = [...state.items];
   switch (action.type) {
-    case 'item-up':
-      const itemsArr1 = [...state.items];
-      [itemsArr1[state.index - 1], itemsArr1[state.index]] = [itemsArr1[state.index], itemsArr1[state.index - 1]];
+    case 'ITEM_UP':
+      [foodList[state.index - 1], foodList[state.index]] = [foodList[state.index], foodList[state.index - 1]];
       return {
         ...state,
-        items: itemsArr1,
+        items: foodList,
         index: state.index - action.index,
       };
-    case 'item-down':
-      const itemsArr2 = [...state.items];
-      [itemsArr2[state.index], itemsArr2[state.index + 1]] = [itemsArr2[state.index + 1], itemsArr2[state.index]];
+    case 'ITEM_DOWN':
+      [foodList[state.index], foodList[state.index + 1]] = [foodList[state.index + 1], foodList[state.index]];
       return {
         ...state,
-        items: itemsArr2,
+        items: foodList,
         index: state.index - action.index,
       };
-    case 'select-item':
+    case 'SELECT_ITEM':
       return {
         ...state,
         index: action.index,
@@ -52,7 +51,7 @@ const getNextState = (state = initialState, action) => {
   }
 };
 
-const store = Redux.createStore(getNextState);
+const store = Redux.createStore(reducer);
 
 document.querySelector('.button-up').addEventListener('click', () => {
   const state = store.getState();
