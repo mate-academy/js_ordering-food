@@ -81,8 +81,7 @@ const buttonMoveUp = document.getElementById('up');
 const buttonMoveDown = document.getElementById('down');
 
 buttonMoveUp.addEventListener('click', () => {
-    let act = moveUp();
-    return store.dispatch(act);
+    return store.dispatch(moveUp());
   }
 );
 
