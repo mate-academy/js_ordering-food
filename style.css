@@ -1,0 +1,13 @@
+.listContainer li {
+  cursor: pointer;
+  width: max-content;
+  padding: 2px 5px;
+}
+
+.activeItem {
+  background-color: rgb(221, 184, 255);
+}
+
+.container {
+  margin-left: 20px;
+}
