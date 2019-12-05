@@ -1,3 +1,5 @@
+import { ACTIONS } from './actions';
+
 const initialState = {
   fruits: [
     'Apple',
@@ -9,12 +11,12 @@ const initialState = {
     'Garlic',
     'Honey',
     'Ice cream',
-    'Jam'
+    'Jam',
   ],
-  selectedItem: null
-}
+  selectedItem: null,
+};
 
-function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ACTIONS.SELECTED_ITEM:
       return {
@@ -27,32 +29,34 @@ function reducer(state = initialState, action) {
         selectedItem: null,
       };
     case ACTIONS.MOVE_DOWN: {
-      const newList = [...state.fruits], index = state.selectedItem;
-      [newList[index], newList[index + 1]] = [newList[index + 1], newList[index]]
+      const newList = [...state.fruits];
+      const index = state.selectedItem;
+      [newList[index], newList[index + 1]] = [newList[index + 1], newList[index]];
 
       if (index === state.fruits.length - 1 || index === null) {
-        return state
+        return state;
       }
       return {
         ...state,
         fruits: newList,
-        selectedItem: state.selectedItem + 1
+        selectedItem: state.selectedItem + 1,
       };
     }
     case ACTIONS.MOVE_UP: {
-      const newList = [...state.fruits], index = state.selectedItem;
-      [newList[index], newList[index - 1]] = [newList[index - 1], newList[index]]
+      const newList = [...state.fruits];
+      const index = state.selectedItem;
+      [newList[index], newList[index - 1]] = [newList[index - 1], newList[index]];
 
       if (index === 0 || index === null) {
-        return state
+        return state;
       }
       return {
         ...state,
         fruits: newList,
-        selectedItem: state.selectedItem - 1
+        selectedItem: state.selectedItem - 1,
       };
     }
     default:
-      return state
+      return state;
   }
 }
