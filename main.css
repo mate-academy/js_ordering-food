@@ -1,0 +1,12 @@
+.active {
+    color: red;
+}
+
+.foods {
+    width: 200px;
+    font-size: 20px;
+}
+
+#list {
+    list-style-type: none;
+}
