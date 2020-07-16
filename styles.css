@@ -1,0 +1,154 @@
+body {
+    height: 100vh;
+    background: #E8E8E8;
+    font-family: 'Playfair Display', serif;
+    overflow: hidden;
+}
+
+body, .buttons, .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+li {
+    width: 60%;
+    margin: 0 auto;
+    list-style: none;
+    padding: 5px 105px;
+    text-align: center;
+    color: #9871DA;
+    display: flex;
+}
+
+li:hover,
+.active {
+    box-shadow: 0 0 2px 0 #797A9E;
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+}
+
+body, .buttons, .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    width: 700px;
+    height: 400px;
+    background: white;
+    position: relative;
+    display: grid;
+    grid-template: 100% / 50% 50%;
+    box-shadow: 2px 2px 10px 0 ;
+}
+
+.buttons {
+    position: absolute;
+    background: white;
+    width: 50%;
+    height: 100%;
+    transition: 0.5s all ease;
+    transform: translateX(100%);
+}
+
+.btn-wrapper {
+    width: 60%;
+}
+
+.button {
+    width: 100%;
+    height: 30px;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+    letter-spacing: 2px;
+    background: lightgrey;
+    margin: 5px 0;
+    font-family: 'Playfair Display', serif;
+}
+
+button:not(:disabled) {
+    background: linear-gradient(45deg, #809BCE, #9893DA);
+    color: white;
+    font-weight: bold;
+}
+
+button:not(:disabled):hover {
+    cursor: pointer;
+}
+
+button:disabled {
+    color: white;
+}
+
+.Apple,
+.Bread,
+.Carrot,
+.Dumplings,
+.Eggs,
+.Fish,
+.Garlic,
+.Honey,
+.Ice,
+.Jam {
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    margin-right: 20px;
+}
+
+.Apple {
+    background-image: url('./images/apple.svg');
+}
+
+.Bread {
+    background-image: url('./images/bread.svg');
+}
+
+.Carrot {
+    background-image: url('./images/carrot.svg');
+}
+
+.Dumplings {
+    background-image: url('./images/dumpling.svg');
+}
+
+.Eggs {
+    background-image: url('./images/boiled-egg.svg');
+}
+
+.Fish {
+    background-image: url('./images/fish.svg');
+}
+
+.Garlic {
+    background-image: url('./images/garlic.svg');
+}
+
+.Honey {
+    background-image: url('./images/honey.svg');
+}
+
+.Ice {
+    background-image: url('./images/ice-cream.svg');
+}
+
+.Jam {
+    background-image: url('./images/jam.svg');
+}
