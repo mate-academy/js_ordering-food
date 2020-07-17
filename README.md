@@ -1,4 +1,4 @@
-# Ordering food
+# Ordering food  [solution](https://dmitriymush.github.io/js_ordering-food/)
 
 Here are 10 items of food: 
 
