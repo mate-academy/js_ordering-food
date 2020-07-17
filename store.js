@@ -12,9 +12,8 @@ const moveGoodDown = (store) => {
   const goods = [ ...items ];
 
   if (selectedGood < goods.length - 1) {
-    const good = goods[selectedGood];
-    goods[selectedGood] = goods[selectedGood + 1];
-    goods[selectedGood + 1] = good;
+    [ goods[selectedGood], goods[selectedGood + 1] ] =
+      [ goods[selectedGood + 1], goods[selectedGood] ];
   }
 
   return goods;
@@ -28,9 +27,9 @@ const moveGoodUp = (store) => {
   const goods = [ ...items ];
 
   if (selectedGood > 0) {
-    const good = goods[selectedGood];
-    goods[selectedGood] = goods[selectedGood - 1];
-    goods[selectedGood - 1] = good;
+    [ goods[selectedGood], goods[selectedGood - 1] ] =
+      [ goods[selectedGood - 1], goods[selectedGood] ];
+
   }
 
   return goods;

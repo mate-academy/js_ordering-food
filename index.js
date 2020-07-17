@@ -14,7 +14,7 @@ console.log('moveDown is true:', updatedState.enabledDown);
 console.log('  moveUp is true:', updatedState.enabledUp);
 
 console.log('------D-o-w-n---E-d-g-e-----');
-console.log('checking normal moving down:');
+console.log('checking edge moving down:');
 
 initialState = store.getState();
 store.dispatch({ type: actions.SELECT, index: 8 });
@@ -27,7 +27,7 @@ console.log('moveDown is false:', updatedState.enabledDown);
 console.log('  moveUp is true:', updatedState.enabledUp);
 
 console.log('--------U-p---E-d-g-e------');
-console.log('checking normal moving down:');
+console.log('checking edge moving up:');
 
 initialState = store.getState();
 store.dispatch({ type: actions.SELECT, index: 1 });
