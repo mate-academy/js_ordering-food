@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="redux.min.js" defer></script>
+  <script src="actions.js" defer></script>
+  <script src="reducer.js" defer></script>
+  <script src="food.js" defer></script>
+  <title>Ordering food</title>
+
+</head>
+<body>
+  <div class="wrapper">
+    <div class="ui middle huge aligned divided list" id="foodList"></div>
+
+    <div class="ui buttons">
+      <button id="up">Move Up</button>
+      <div class="or"></div>
+      <button id="down">Move Down</button>
+    </div>
+  </div>
+</body>
+</html>
