@@ -42,26 +42,34 @@ const reducer = (state = itnitialState, action) => {
     }
     case 'moveUp': {
       const goods = [...state.items]
-      const selected = goods[state.selectedItem]
-      const movedItem = goods[state.selectedItem - 1]
-      goods[state.selectedItem - 1] = selected;
-      goods[state.selectedItem] = movedItem;
+      let newIndex = state.selectedItem
+      if (state.selectedItem > 0) {
+        const selected = goods[state.selectedItem]
+        const movedItem = goods[state.selectedItem - 1]
+        goods[state.selectedItem - 1] = selected;
+        goods[state.selectedItem] = movedItem;
+        newIndex--
+      }
       return {
         ...state,
         items: goods,
-        selectedItem: state.selectedItem - 1,
+        selectedItem: newIndex,
       }
     }
     case 'moveDown':
       const goods = [...state.items]
-      const selected = goods[state.selectedItem]
-      const movedItem = goods[state.selectedItem + 1]
-      goods[state.selectedItem + 1] = selected;
-      goods[state.selectedItem] = movedItem;
+      let newIndex = state.selectedItem
+      if (state.selectedItem < goods.length - 1) {
+        const selected = goods[state.selectedItem]
+        const movedItem = goods[state.selectedItem + 1]
+        goods[state.selectedItem + 1] = selected;
+        goods[state.selectedItem] = movedItem;
+        newIndex++
+      }
       return {
         ...state,
         items: goods,
-        selectedItem: state.selectedItem + 1,
+        selectedItem: newIndex,
       }
     default:
       return state;
@@ -72,8 +80,8 @@ const store = createStore(reducer)
 
 const initialState = store.getState();
 store.dispatch(select(0));
-store.dispatch(moveDown());
+store.dispatch(moveUp());
 store.dispatch(moveDown());
 const updatedState = store.getState();
 
-console.log('Should be true', initialState.items[0] === updatedState.items[2]);
+console.log('Should be true', initialState.items[0] === updatedState.items[1]);
