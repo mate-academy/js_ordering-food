@@ -1,33 +1,31 @@
-const { createStore } = require('redux.min.js')
+const { createStore } = require('./redux.min.js')
 const items = ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam'];
 
 
 const initialState = {
     items: [...items],
-    index: -1,
+    index: 0,
 };
 
 const ACTIONS = {
-    moveDown: 'MOVE_UP',
-    moveUp: 'MOVE_DOWN',
-    selectItem : 'SELECT_ITEM',
+    MOVE_UP: 'MOVE_UP',
+    MOVE_DOWN: 'MOVE_DOWN',
+    SELECT_ITEM : 'SELECT_ITEM',
   };
 
-const moveDown = (index) => {
+const MOVE_DOWN = () => {
     return {
         type: ACTIONS.MOVE_DOWN,
-        index: index - 1,
     }
 }
 
-const moveUp = (index) => {
+const MOVE_UP = (index) => {
     return {
         type: ACTIONS.MOVE_UP,
-        index: index + 1,
     }
 }
 
-const selectItem = (index) => {
+const SELECT_ITEM = (index) => {
     return {
         type: ACTIONS.SELECT_ITEM,
         index,
@@ -35,8 +33,9 @@ const selectItem = (index) => {
 }
 
 const reducer = (state = initialState, action) => {
-    switch (action) {
+    switch (action.type) {
         case 'MOVE_UP':
+            console.log("in move up")
             const tempState = [...state.items];
             const temp = tempState[state.index];
             tempState[state.index] = tempState[state.index + 1];
@@ -44,7 +43,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: [...tempState],
-                index: state.index + 1,
             }
         case 'MOVE_DOWN':
             const tempState2 = [...state.items];
@@ -53,10 +51,10 @@ const reducer = (state = initialState, action) => {
             tempState2[state.index - 1] = temp2;
             return {
                 ...state,
-                items: [...tempState2],
-                index: state.index - 1,
+                items: [...tempState2]
             }
         case 'SELECT_ITEM': 
+        console.log('selected')
             return {
                 ...state,
                 index: action.index,
@@ -65,15 +63,10 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
-const store = Redux.createStore(reducer);
-
-const nexState = store.getState();
-store.dispatch(actions.SELECT, 0);
-store.dispatch(actions.MOVE_DOWN);
-store.dispatch(actions.MOVE_DOWN);
+const store = createStore(reducer);
+store.dispatch({ type: ACTIONS.SELECT_ITEM, index: 6 });
+store.dispatch({ type: ACTIONS.MOVE_UP });
 
 const updatedState = store.getState();
 
-console.log(nextState, updatedState);
-
-console.log(items, up, down)
+console.log(updatedState);
