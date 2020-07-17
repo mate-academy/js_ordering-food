@@ -50,24 +50,24 @@ const initialStore = {
     'Jam',
   ],
   selectedGood: undefined,
-  // enabledUp: false,
-  // enabledDown: false,
+  enabledUp: false,
+  enabledDown: false,
 }
 
 const reducer = (store = initialStore, action) => {
 
   switch (action.type) {
     case SELECT:
-      // const isMovableUp = !!action.index;
-      // const isMovableDown = action.index < store.items.length - 1;
+      const isMovableUp = !!action.index;
+      const isMovableDown = action.index < store.items.length - 1;
 
       console.log('selected', action.index);
 
       return {
         ...store,
         selectedGood: action.index,
-        // enabledUp: isMovableUp,
-        // enabledDown: isMovableDown,
+        enabledUp: isMovableUp,
+        enabledDown: isMovableDown,
       };
 
     case MOVE_UP:
