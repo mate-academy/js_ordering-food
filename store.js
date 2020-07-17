@@ -1,8 +1,8 @@
 const { createStore } = require('./redux.min');
 
-const MOVE_UP = 'moveUP';
-const MOVE_DOWN = 'moveDown';
-const SELECT = 'selectItem';
+const MOVE_UP = 'MOVE_UP';
+const MOVE_DOWN = 'MOVE_DOWN';
+const SELECT = 'SELECT';
 
 const food = ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam']
 
@@ -26,24 +26,24 @@ function reducer(state = initialState, action) {
       case MOVE_UP: {
           const newItemsOfFood = [...state.itemsOfFood];
           const item = newItemsOfFood.splice(state.selectedItem, 1);
-          newItemsOfFood.splice(state.selectedItem - 1, 0, item)
+          newItemsOfFood.splice(state.selectedItem - 1, 0, item[0])
 
           return {
             ...state,
             itemsOfFood: newItemsOfFood,
-            selectItem: state.selectedItem - 1
+            selectedItem: state.selectedItem - 1
           };
       }
 
       case MOVE_DOWN: {
         const newItemsOfFood = [...state.itemsOfFood];
         const item = newItemsOfFood.splice(state.selectedItem, 1);
-        newItemsOfFood.splice(state.selectedItem + 1, 0, item)
+        newItemsOfFood.splice(state.selectedItem + 1, 0, item[0])
 
         return {
           ...state,
           itemsOfFood: newItemsOfFood,
-          selectItem: state.selectedItem + 1
+          selectedItem: state.selectedItem + 1
         };
       }
 
@@ -55,7 +55,7 @@ function reducer(state = initialState, action) {
 
 const store = createStore(reducer);
 
-store.dispatch(selectItem(0))
+store.dispatch(selectItem(2))
 store.dispatch(moveDown());
 store.dispatch(moveDown());
 
