@@ -19,6 +19,8 @@ const initialState = {
   selected: -1,
 }
 
+console.log("initialState", initialState.items);
+
 const action = (operation, element=null) => {
   
   return {
@@ -36,7 +38,8 @@ const reducer = (state, action) => {
       case MOVE_DOWN:
         
         if(state.selected !== -1) {
-          interimState.splice(state.selected-1, 2, state.items[state.selected], state.items[state.selected-1])
+          interimState
+            .splice(state.selected-1, 2, state.items[state.selected], state.items[state.selected-1])
         }
 
         return interimState;
@@ -44,13 +47,15 @@ const reducer = (state, action) => {
       case MOVE_UP:
         
         if(state.selected !== -1) {
-          interimState.splice(state.selected, 2, state.items[state.selected+1], state.items[state.selected])
+          interimState
+            .splice(state.selected, 2, state.items[state.selected+1], state.items[state.selected])
         }
 
         return interimState;
   
       case SELECT:
-        initialState.selected = interimState.findIndex(subjectOfSearch => subjectOfSearch === action.select)
+        initialState.selected = interimState
+          .findIndex(subjectOfSearch => subjectOfSearch === action.select)
   
         return interimState;
     
@@ -62,3 +67,5 @@ const reducer = (state, action) => {
 let newState = reducer(initialState, action(SELECT, '5'));
 newState = reducer(initialState, action(MOVE_DOWN));
 
+console.log("newState", newState);
+console.log("initialState.items[4] === newState[5]", initialState.items[4] === newState[3])
