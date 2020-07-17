@@ -55,12 +55,11 @@ const initialStore = {
 }
 
 const reducer = (store = initialStore, action) => {
-
   switch (action.type) {
-    case SELECT:
-      const isMovableUp = !!action.index;
+    case SELECT: {
+      const isMovableUp = action.index > 0;
       const isMovableDown = action.index < store.items.length - 1;
-
+    
       console.log('selected', action.index);
 
       return {
@@ -69,9 +68,10 @@ const reducer = (store = initialStore, action) => {
         enabledUp: isMovableUp,
         enabledDown: isMovableDown,
       };
-
-    case MOVE_UP:
-      console.log('moved_up',store.selectedGood);
+    }
+    case MOVE_UP: {
+      const isMovableUp = store.selectedGood > 0;
+      console.log('moved_up', store.selectedGood);
 
       return {
         ...store,
@@ -79,8 +79,11 @@ const reducer = (store = initialStore, action) => {
         selectedGood: store.selectedGood
           ? ( store.selectedGood - 1 )
           : ( store.selectedGood ),
+          enabledUp: isMovableUp,
       };
-    case MOVE_DOWN:
+    }
+    case MOVE_DOWN: {
+      const isMovableDown = store.selectedGood < store.items.length - 1;
       console.log('moved_down', store.selectedGood);
 
       return {
@@ -89,7 +92,9 @@ const reducer = (store = initialStore, action) => {
         selectedGood: store.selectedGood < store.items.length - 1
           ? ( store.selectedGood + 1)
           : ( store.selectedGood ),
+          enabledDown: isMovableDown,
       };
+    }
     default:
       return store;
   }
