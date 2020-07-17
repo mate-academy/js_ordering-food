@@ -1,28 +1,5 @@
 const { createStore } = require('./redux.min.js');
-const MOVE_UP = 'MOVE_UP';
-const MOVE_DOWN = 'MOVE_DOWN';
-const SELECT = 'SELECT';
-
-const action = {
-  MOVE_UP,
-  MOVE_DOWN,
-  SELECT
-}
-
-const defaultState = {
-  items: [
-  'Apple',
-  'Bread',
-  'Carrot',
-  'Dumplings',
-  'Eggs',
-  'Fish',
-  'Garlic',
-  'Honey',
-  'Ice cream',
-  'Jam'],
-  index: null,
-}
+const { defaultState, actions } = require('./actions');
 
 const movementReducer = (state=defaultState, action) => {
   switch (action.type) {
@@ -70,8 +47,13 @@ const movementReducer = (state=defaultState, action) => {
       return state;
   }
 }
+const store = createStore(movementReducer);
+const initialState = store.getState();
+store.dispatch(actions.SELECT(0));
+store.dispatch(actions.MOVE_DOWN());
+store.dispatch(actions.MOVE_DOWN());
 
-module.exports = {
-  store,
-  action,
-};
+
+const updatedState = store.getState();
+
+console.log('Should be true', initialState.items[0] === updatedState.items[2]);
