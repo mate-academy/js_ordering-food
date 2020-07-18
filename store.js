@@ -32,14 +32,12 @@ const select = (value) => ({
   index: value
 })
 
-
-// reducer
 const rootReducer = (state = initialState, action) => {
   switch(action.type) {
     case SELECT:
       return {
         ...state,
-        selected: action.index - 1,
+        selected: action.index,
       };
     case MOVE_UP:
       return {
@@ -82,14 +80,11 @@ const rootReducer = (state = initialState, action) => {
 
 let store = createStore(rootReducer);
 
-store.dispatch(select(1));
+store.dispatch(select(0));
 store.dispatch(moveDown());
 store.dispatch(moveDown());
-store.dispatch(moveUp())
-
-console.log(store.getState());
 
 
-module.exports = {
-  store,
-};
+const updatedState = store.getState();
+
+console.log('Should be true', initialState.items[0] === updatedState.items[2]);
