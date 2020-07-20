@@ -1,29 +1,23 @@
 const { createStore } = require('./redux.min');
 
 const actions = {
-  MOVE_UP: 'moveUp',
-  MOVE_DOWN: 'moveDown',
-  SELECT: 'selectItem',
+  MOVE_UP: 'MOVE_UP',
+  MOVE_DOWN: 'MOVE_DOWN',
+  SELECT: 'SELECT',
 }
 
-const moveUp = () => {
-  return {
-    type: actions.MOVE_UP,
-  }
-}
+const moveUp = () => ({
+  type: actions.MOVE_UP
+});
 
-const moveDown = () => {
-  return {
-    type: actions.MOVE_DOWN,
-  }
-}
+const moveDown = () => ({
+  type: actions.MOVE_DOWN
+});
 
-const select = (index) => {
-  return {
-    type: actions.SELECT,
-    index: index,
-  }
-}
+const select = (index) => ({
+  type: actions.SELECT,
+  index: index,
+});
 
 const goods = ['Apple', 'Bread', 'Cgoodsot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam']
 
@@ -34,20 +28,18 @@ const itnitialState = {
 
 const reducer = (state = itnitialState, action) => {
   switch(action.type) {
-    case 'selectItem': {
+    case 'SELECT': {
       return {
         ...state,
         selectedItem: action.index,
       }
     }
-    case 'moveUp': {
+    case 'MOVE_UP': {
+      let newIndex = state.selectedItem;
       const goods = [...state.items]
-      let newIndex = state.selectedItem
       if (state.selectedItem > 0) {
-        const selected = goods[state.selectedItem]
-        const movedItem = goods[state.selectedItem - 1]
-        goods[state.selectedItem - 1] = selected;
-        goods[state.selectedItem] = movedItem;
+        [goods[state.selectedItem], goods[state.selectedItem - 1]]
+        = [goods[state.selectedItem - 1], goods[state.selectedItem]]
         newIndex--
       }
       return {
@@ -56,14 +48,12 @@ const reducer = (state = itnitialState, action) => {
         selectedItem: newIndex,
       }
     }
-    case 'moveDown':
-      const goods = [...state.items]
+    case 'MOVE_DOWN':
       let newIndex = state.selectedItem
+      const goods = [...state.items]
       if (state.selectedItem < goods.length - 1) {
-        const selected = goods[state.selectedItem]
-        const movedItem = goods[state.selectedItem + 1]
-        goods[state.selectedItem + 1] = selected;
-        goods[state.selectedItem] = movedItem;
+        [goods[state.selectedItem], goods[state.selectedItem + 1]]
+        = [goods[state.selectedItem + 1], goods[state.selectedItem]]
         newIndex++
       }
       return {
@@ -83,5 +73,6 @@ store.dispatch(select(0));
 store.dispatch(moveUp());
 store.dispatch(moveDown());
 const updatedState = store.getState();
+console.log(updatedState)
 
 console.log('Should be true', initialState.items[0] === updatedState.items[1]);
