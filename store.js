@@ -13,48 +13,42 @@ const ACTIONS = {
     SELECT_ITEM : 'SELECT_ITEM',
   };
 
-const MOVE_DOWN = () => {
-    return {
-        type: ACTIONS.MOVE_DOWN,
-    }
-}
+const MOVE_DOWN = () => ({
+    type: ACTIONS.MOVE_DOWN,
+})
 
-const MOVE_UP = (index) => {
-    return {
-        type: ACTIONS.MOVE_UP,
-    }
-}
 
-const SELECT_ITEM = (index) => {
-    return {
-        type: ACTIONS.SELECT_ITEM,
-        index,
-    }
-}
+const MOVE_UP = (index) => ({
+    type: ACTIONS.MOVE_UP,
+})
+
+
+const SELECT_ITEM = (index) => ({
+    type: ACTIONS.SELECT_ITEM,
+    index,
+})
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'MOVE_UP':
-            console.log("in move up")
-            const tempState = [...state.items];
-            const temp = tempState[state.index];
-            tempState[state.index] = tempState[state.index + 1];
-            tempState[state.index + 1] = temp;
+        case ACTIONS.MOVE_UP:
+            const tempStateUp = [...state.items];
+            const tempUp = tempStateUp[state.index];
+            tempStateUp[state.index] = tempStateUp[state.index + 1];
+            tempStateUp[state.index + 1] = tempUp;
             return {
                 ...state,
-                items: [...tempState],
+                items: [...tempStateUp],
             }
-        case 'MOVE_DOWN':
-            const tempState2 = [...state.items];
-            const temp2 = tempState2[state.index];
-            tempState2[state.index] = tempState2[state.index - 1];
-            tempState2[state.index - 1] = temp2;
+        case ACTIONS.MOVE_DOWN:
+            const tempStateDown = [...state.items];
+            const tempDown = tempStateDown[state.index];
+            tempStateDown[state.index] = tempStateDown[state.index - 1];
+            tempStateDown[state.index - 1] = tempDown;
             return {
                 ...state,
-                items: [...tempState2]
+                items: [...tempStateDown]
             }
-        case 'SELECT_ITEM': 
-        console.log('selected')
+        case ACTIONS.SELECT_ITEM: 
             return {
                 ...state,
                 index: action.index,
