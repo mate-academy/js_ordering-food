@@ -1,47 +1,71 @@
 const { createStore } = require('./redux.min');
 
-const initialState = {
+const selectedItem = {
   items: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam'],
-  Selected: null,
+  selected: null,
 } ;
 
-const SELECT = 'SELECT';
-const MOVE_UP = 'MOVE_UP';
-const MOVE_DOWN = 'MOVE_DOWN';
+const actions = {
+  SELECT: 'SELECT',
+  MOVE_UP: 'MOVE_UP',
+  MOVE_DOWN: 'MOVE_DOWN',
+}
+
+const moveUp = () => ({ type: actions.MOVE_UP });
+
+const moveDown = () => ({ type: actions.MOVE_DOWN });
+
+const select = (value) => {
+  return {
+    type: actions.SELECT,
+    value
+  }
+}
 
 function moveItemUp(items, index) {
   const movedUpItems = [...items];
-  [movedUpItems[index], movedUpItems[index - 1]] = [movedUpItems[index - 1], movedUpItems[index]];
-  return movedUpItems;
+  lastItem = movedUpItems.length - 1;
+
+  if (index === 0) {
+    return [...movedUpItems.slice(1), lastItem];
+  } else {
+    [movedUpItems[index], movedUpItems[index - 1]] = [movedUpItems[index - 1], movedUpItems[index]];
+    return movedUpItems;
+  }
 }
 
 function moveItemDown(items, index) {
-  const movedUpItems = [...items];
-  [movedUpItems[index], movedUpItems[index + 1]] = [movedUpItems[index + 1], movedUpItems[index]];
-  return movedUpItems;
+  const movedDownItems = [...items];
+  lastItem = movedDownItems.length - 1;
+  
+  if (index === lastItem) {
+    return [movedDownItems[lastItem], ...movedDownItems.slice(0, lastItem - 1)]
+  }
+  [movedDownItems[index], movedDownItems[index + 1]] = [movedDownItems[index + 1], movedDownItems[index]];
+  return movedDownItems;
 }
 
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = selectedItem, action) => {
   switch(action.type) {
-    case SELECT:
+    case actions.SELECT:
       return {
         ...state,
-        Selected: action.value,
+        selected: action.value,
       };
-    case MOVE_UP:
-      const movedItemsUp = moveItemUp(state.items, state.Selected);
+    case actions.MOVE_UP:
+      const movedItemsUp = moveItemUp(state.items, state.selected);
       return {
         ...state,
         items: movedItemsUp,
-        Selected: state.Selected - 1,
+        selected: state.selected - 1,
         };
-    case MOVE_DOWN:
-      const movedItemsDown = moveItemDown(state.items, state.Selected);
+    case actions.MOVE_DOWN:
+      const movedItemsDown = moveItemDown(state.items, state.selected);
       return {
         ...state,
         items: movedItemsDown,
-        Selected: state.Selected + 1,
+        selected: state.selected + 1,
       };
     default: 
       return state;
@@ -50,26 +74,18 @@ const reducer = (state = initialState, action) => {
 
 let store = createStore(reducer)
 
-const moveUp = () => ({ type: MOVE_UP });
-
-const moveDown = () => ({ type: MOVE_DOWN });
-
-const select = (value) => {
-  return {
-    type: SELECT,
-    value
-  }
-}
-
-store.dispatch(select(2))
-store.dispatch(moveDown())
+store.dispatch(select(9))
+store.dispatch(moveUp())
+store.dispatch(moveUp())
 store.dispatch(moveDown())
 
-console.log(store.getState())
+let i = store.getState()
+
+
+
+console.log(i.items)
 
 
 module.exports = {
   store,
-  // actions,
-  // actionCreators,
 };
