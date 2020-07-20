@@ -1,5 +1,7 @@
 const Redux = require('./redux.min');
 
+
+// Data
 const food = [
   {
     id: 1,
@@ -43,61 +45,77 @@ const food = [
   },
 ];
 
-const MOVE_UP = 'MOVE_UP';
-const MOVE_DOWN = 'MOVE_DOWN';
-const SELECT = 'SELECT';
+
+// Actions
+const actions = {
+  MOVE_UP: "MOVE_UP",
+  MOVE_DOWN: "MOVE_DOWN",
+  SELECT: "SELECT",
+}
 
 const initialState = {
   items: food,
-  selectedId: 3,
+  selectedId: null,
 }
 
 const moveUp = () => {
   return {
-    type: MOVE_UP,
+    type: actions.MOVE_UP,
   }
 }
 
 const moveDown = () => {
   return {
-    type: MOVE_DOWN,
+    type: actions.MOVE_DOWN,
   }
 }
 
 const select = (itemId) => {
   return {
-    type: SELECT,
+    type: actions.SELECT,
     id: itemId,
   }
 }
 
+
+// Reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case MOVE_UP: {
+    case "MOVE_UP": {
       const itemsCopy = [...state.items];
       const itemToSwap = itemsCopy.find(item => item.id === state.selectedId);
       const itemIndex = itemsCopy.findIndex(item => item.id === state.selectedId);
-      itemsCopy[itemIndex] = itemsCopy[itemIndex - 1];
-      itemsCopy[itemIndex - 1] = itemToSwap;
 
-      return {
-        ...state,
-        items: itemsCopy,
+      if (itemIndex === 0) {
+        throw new Error('The item is already the first one on the list');
+      } else {
+        itemsCopy[itemIndex] = itemsCopy[itemIndex - 1];
+        itemsCopy[itemIndex - 1] = itemToSwap;
+
+        return {
+          ...state,
+          items: itemsCopy,
+        }
       }
     };
-    case MOVE_DOWN: {
+    case "MOVE_DOWN": {
       const itemsCopy = [...state.items];
       const itemToSwap = itemsCopy.find(item => item.id === state.selectedId);
       const itemIndex = itemsCopy.findIndex(item => item.id === state.selectedId);
-      itemsCopy[itemIndex] = itemsCopy[itemIndex + 1];
-      itemsCopy[itemIndex + 1] = itemToSwap;
 
-      return {
-        ...state,
-        items: itemsCopy,
+      if (itemIndex === itemsCopy.length - 1) {
+        throw new Error("The item is already the last one on the list");
+      } else {
+        itemsCopy[itemIndex] = itemsCopy[itemIndex + 1];
+        itemsCopy[itemIndex + 1] = itemToSwap;
+
+        return {
+          ...state,
+          items: itemsCopy,
+        }
       }
     };
-    case SELECT:
+    case "SELECT":
       return {
         ...state,
         selectedId: action.id,
@@ -108,3 +126,15 @@ const reducer = (state = initialState, action) => {
 }
 
 const store = Redux.createStore(reducer);
+
+// Tests
+store.dispatch(select(1));
+store.dispatch(moveDown());
+store.dispatch(moveDown());
+store.dispatch(select(6));
+store.dispatch(moveUp());
+store.dispatch(moveUp());
+console.log(
+  'Moved the first item to the third place:', initialState.items[0] == store.getState().items[2],
+  'Moved the sixth item to the fourth place:', initialState.items[5] == store.getState().items[3]
+);
