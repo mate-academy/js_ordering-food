@@ -1,49 +1,53 @@
 const { createStore } = require('./redux.min');
 
-const MOVE_UP = 'MOVE_UP';
-const MOVE_DOWN = 'MOVE_DOWN';
-const SELECT = 'SELECT';
+const ACTIONS = {
+  MOVE_UP : 'MOVE_UP',
+  MOVE_DOWN : 'MOVE_DOWN',
+  SELECT : 'SELECT'
+}
 
 const food = ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice cream', 'Jam']
 
 const initialState = {
-  itemsOfFood: [...food],
-  selectedItem: null
+ items: [...food],
+  index: null
 };
 
-const selectItem = (index) => ({type:SELECT, index})
-const moveUp = () => ({type: MOVE_UP});
-const moveDown = () => ({type: MOVE_DOWN});
+const actionsCreator = {
+  select: (index) => ({type: ACTIONS.SELECT, index}),
+  moveUp: () => ({type: ACTIONS.MOVE_UP}),
+  moveDown: () => ({type: ACTIONS.MOVE_DOWN}),
+};
 
 function reducer(state = initialState, action) {
   switch(action.type) {
-    case SELECT:
+    case ACTIONS.SELECT:
       return {
         ...state,
-        selectedItem: action.index
+        index: action.index
       };
 
-      case MOVE_UP: {
-          const newItemsOfFood = [...state.itemsOfFood];
-          const item = newItemsOfFood.splice(state.selectedItem, 1);
-          newItemsOfFood.splice(state.selectedItem - 1, 0, item[0])
+      case ACTIONS.MOVE_UP: {
+          const newItemsOfFood = [...state.items];
+          const item = newItemsOfFood.splice(state.index, 1);
+          newItemsOfFood.splice(state.index - 1, 0, item[0])
 
           return {
             ...state,
-            itemsOfFood: newItemsOfFood,
-            selectedItem: state.selectedItem - 1
+            items: newItemsOfFood,
+            index: state.index - 1
           };
       }
 
-      case MOVE_DOWN: {
-        const newItemsOfFood = [...state.itemsOfFood];
-        const item = newItemsOfFood.splice(state.selectedItem, 1);
-        newItemsOfFood.splice(state.selectedItem + 1, 0, item[0])
+      case ACTIONS.MOVE_DOWN: {
+        const newItemsOfFood = [...state.items];
+        const item = newItemsOfFood.splice(state.index, 1);
+        newItemsOfFood.splice(state.index + 1, 0, item[0])
 
         return {
           ...state,
-          itemsOfFood: newItemsOfFood,
-          selectedItem: state.selectedItem + 1
+          items: newItemsOfFood,
+          index: state.index + 1
         };
       }
 
@@ -55,16 +59,14 @@ function reducer(state = initialState, action) {
 
 const store = createStore(reducer);
 
-store.dispatch(selectItem(2))
-store.dispatch(moveDown());
-store.dispatch(moveDown());
-
+console.log(store.getState());
+store.dispatch(actionsCreator.select(2));
+store.dispatch(actionsCreator.moveDown());
+store.dispatch(actionsCreator.moveDown());
 console.log(store.getState());
 
 
 module.export = {
   store,
-  moveUp,
-  moveDown,
-  selectItem
+
 };
