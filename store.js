@@ -1,46 +1,46 @@
 const { createStore } = require('./redux.min.js');
-const { defaultState, actions } = require('./actions');
+const { initialState, actionCreators } = require('./actions');
 
-const movementReducer = (state=defaultState, action) => {
+const movementReducer = (state=initialState, action) => {
   switch (action.type) {
     case 'MOVE_UP': {
-      let { items, index } = state;
-      if (index === 0) {
+      let { items, selectedIndex } = state;
+      if (selectedIndex === 0) {
         return state;
       }
 
       let copyItems = [...items];
-      [copyItems[index], copyItems[index - 1]] = [copyItems[index - 1], copyItems[index]];
-      index--;
+      [copyItems[selectedIndex], copyItems[selectedIndex - 1]] = [copyItems[selectedIndex - 1], copyItems[selectedIndex]];
+      selectedIndex--;
 
       return {
         ...state,
         items: copyItems,
-        index,
+        selectedIndex,
       }
     }
       
     case 'MOVE_DOWN': {
-      let { items, index } = state;
-      if(index + 1 === items.length) {
+      let { items, selectedIndex } = state;
+      if(selectedIndex + 1 === items.length) {
         return state;
       }
 
       let copyItems = [...items];
-      [copyItems[index], copyItems[index + 1]] = [copyItems[index + 1], copyItems[index]];
-      index++;
+      [copyItems[selectedIndex], copyItems[selectedIndex + 1]] = [copyItems[selectedIndex + 1], copyItems[selectedIndex]];
+      selectedIndex++;
 
       return {
         ...state,
         items: copyItems,
-        index,
+        selectedIndex,
       }
     }
   
     case 'SELECT': 
       return {
         ...state,
-        index: action.index
+        selectedIndex: action.selectedIndex
       }
     
     default: 
@@ -48,12 +48,12 @@ const movementReducer = (state=defaultState, action) => {
   }
 }
 const store = createStore(movementReducer);
-const initialState = store.getState();
-store.dispatch(actions.SELECT(0));
-store.dispatch(actions.MOVE_DOWN());
-store.dispatch(actions.MOVE_DOWN());
-
-
+const defaultState = store.getState();
+store.dispatch(actionCreators.select(0));
+store.dispatch(actionCreators.movedown());
+store.dispatch(actionCreators.movedown());
 const updatedState = store.getState();
+console.log(updatedState, defaultState);
 
-console.log('Should be true', initialState.items[0] === updatedState.items[2]);
+
+console.log('Should be true', defaultState.items[0] === updatedState.items[2]);

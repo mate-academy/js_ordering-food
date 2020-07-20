@@ -2,25 +2,27 @@ const MOVE_UP = 'MOVE_UP';
 const MOVE_DOWN = 'MOVE_DOWN';
 const SELECT = 'SELECT';
 
-const moveup = () => ({
-  type: MOVE_UP,
-})
-const movedown = () => ({
-  type: MOVE_DOWN,
-})
-
-const select = (index) => ({
-  type: SELECT,
-  index,
-})
-
 const actions = {
-  MOVE_UP: moveup, 
-  MOVE_DOWN: movedown,
-  SELECT: select
+  MOVE_UP,
+  MOVE_DOWN,
+  SELECT,
 }
 
-const defaultState = {
+const actionCreators = {
+  moveup : () => ({
+    type: MOVE_UP,
+  }),
+
+  movedown : () => ({
+    type: MOVE_DOWN,
+  }),
+
+  select : (selectedIndex) => ({
+    type: SELECT,
+    selectedIndex,
+  }),
+}
+const initialState = {
   items: [
   'Apple',
   'Bread',
@@ -32,10 +34,10 @@ const defaultState = {
   'Honey',
   'Ice cream',
   'Jam'],
-  index: null,
+  selectedIndex: null,
 }
 
 module.exports = {
-  defaultState,
-  actions,
+  initialState,
+  actionCreators,
 }
