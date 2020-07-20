@@ -80,4 +80,3 @@ store.dispatch(MOVE_DOWN());
 const updatedState = store.getState();
 
 console.log('Should be true', initialState.items[0] === updatedState.items[2]);
-
