@@ -6,28 +6,28 @@ const initialState = {
 }
 
 const actions = {
-  moveUp: 'moveUp',
-  moveDown: 'moveDown',
-  select: 'select',
+  MOVE_UP: 'MOVE_UP',
+  MOVE_DOWN: 'MOVE_DOWN',
+  SELECT: 'SELECT',
 }
 
 const moveUp = (index) => {
   return {
-    type: actions.moveUp,
+    type: actions.MOVE_UP,
     index
   };
 }
 
 const moveDown = (index) => {
   return {
-    type: actions.moveDown,
+    type: actions.MOVE_DOWN,
     index
   };
 }
 
 const select = (index) => {
   return {
-    type: actions.select,
+    type: actions.SELECT,
     index
   };
 }
@@ -35,14 +35,15 @@ const select = (index) => {
 const reducer = (state = initialState, action) => {
   const { itemList, selectedItem } = state;
   const copyItemList = [...itemList]
+
   switch (action.type) {
-    case 'select':
+    case actions.SELECT:
       return {
         ...state,
         selectedItem: action.index
       };
 
-    case 'moveUp': {
+    case actions.MOVE_UP: {
       [
         copyItemList[selectedItem],
         copyItemList[selectedItem - 1]
@@ -57,7 +58,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     
-    case 'moveDown': {
+    case actions.MOVE_DOWN: {
       [
         copyItemList[selectedItem],
         copyItemList[selectedItem + 1]
