@@ -58,30 +58,27 @@ const initialState = {
   selectedId: null,
 }
 
-const moveUp = () => {
-  return {
+const moveUp = () => ({
     type: actions.MOVE_UP,
   }
-}
+);
 
-const moveDown = () => {
-  return {
+const moveDown = () => ({
     type: actions.MOVE_DOWN,
   }
-}
+);
 
-const select = (itemId) => {
-  return {
+const select = (itemId) => ({
     type: actions.SELECT,
     id: itemId,
   }
-}
+);
 
 
 // Reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "MOVE_UP": {
+    case actions.MOVE_UP: {
       const itemsCopy = [...state.items];
       const itemToSwap = itemsCopy.find(item => item.id === state.selectedId);
       const itemIndex = itemsCopy.findIndex(item => item.id === state.selectedId);
@@ -98,7 +95,7 @@ const reducer = (state = initialState, action) => {
         }
       }
     };
-    case "MOVE_DOWN": {
+    case actions.MOVE_DOWN: {
       const itemsCopy = [...state.items];
       const itemToSwap = itemsCopy.find(item => item.id === state.selectedId);
       const itemIndex = itemsCopy.findIndex(item => item.id === state.selectedId);
@@ -115,7 +112,7 @@ const reducer = (state = initialState, action) => {
         }
       }
     };
-    case "SELECT":
+    case actions.SELECT:
       return {
         ...state,
         selectedId: action.id,
