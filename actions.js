@@ -1,6 +1,7 @@
 const MOVE_UP = 'MOVE_UP';
 const MOVE_DOWN = 'MOVE_DOWN';
 const SELECT = 'SELECT';
+const items = ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish','Garlic', 'Honey', 'Ice cream', 'Jam'];
 
 const actions = {
   MOVE_UP,
@@ -23,21 +24,12 @@ const actionCreators = {
   }),
 }
 const initialState = {
-  items: [
-  'Apple',
-  'Bread',
-  'Carrot',
-  'Dumplings',
-  'Eggs',
-  'Fish',
-  'Garlic',
-  'Honey',
-  'Ice cream',
-  'Jam'],
+  items,
   selectedIndex: null,
 }
 
 module.exports = {
   initialState,
   actionCreators,
+  actions,
 }

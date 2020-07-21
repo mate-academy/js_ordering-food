@@ -1,9 +1,9 @@
 const { createStore } = require('./redux.min.js');
-const { initialState, actionCreators } = require('./actions');
+const { initialState, actionCreators, actions } = require('./actions');
 
 const movementReducer = (state=initialState, action) => {
   switch (action.type) {
-    case 'MOVE_UP': {
+    case actions.MOVE_UP: {
       let { items, selectedIndex } = state;
       if (selectedIndex === 0) {
         return state;
@@ -20,7 +20,7 @@ const movementReducer = (state=initialState, action) => {
       }
     }
       
-    case 'MOVE_DOWN': {
+    case actions.MOVE_DOWN: {
       let { items, selectedIndex } = state;
       if(selectedIndex + 1 === items.length) {
         return state;
@@ -37,7 +37,7 @@ const movementReducer = (state=initialState, action) => {
       }
     }
   
-    case 'SELECT': 
+    case actions.SELECT: 
       return {
         ...state,
         selectedIndex: action.selectedIndex
