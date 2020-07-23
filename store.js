@@ -1,10 +1,12 @@
 const { createStore } = require('./redux.min');
 
-const MOVE_UP = 'move up';
-const MOVE_DOWN = 'move down';
-const SELECT = 'select';
+const actions = {
+  MOVE_UP: 'move up',
+  MOVE_DOWN: 'move down',
+  SELECT: 'select',
+}
 
-const INITIAL_ITEMS = [
+const initialItems = [
   'Apple',
   'Bread',
   'Carrot',
@@ -17,19 +19,19 @@ const INITIAL_ITEMS = [
   'Jam',
 ]
 
-const INITIAL_STORE = {
-  items: INITIAL_ITEMS,
+const initialStore = {
+  items: initialItems,
   isSelected: null,
 };
 
-const reducer = (state = INITIAL_STORE, action) => {
+const reducer = (state = initialStore, action) => {
   switch (action.type) {
-    case SELECT:
+    case actions.SELECT:
       return {
         ...state,
         isSelected: action.index,
       };
-    case MOVE_UP:
+    case actions.MOVE_UP:
       if (state.isSelected <= 0) {
         return state;
       }
@@ -41,7 +43,7 @@ const reducer = (state = INITIAL_STORE, action) => {
         items: movedItemsUp,
         isSelected: state.isSelected - 1,
       };
-    case MOVE_DOWN:
+    case actions.MOVE_DOWN:
       if (state.isSelected >= state.items.length - 1) {
         return state;
       }
@@ -73,16 +75,16 @@ function moveItemDown(items, index) {
 }
 
 const select = (index) => ({
-  type: SELECT,
+  type: actions.SELECT,
   index,
 })
 
 const moveUp = () => ({
-  type: MOVE_UP,
+  type: actions.MOVE_UP,
 })
 
 const moveDown = () => ({
-  type: MOVE_DOWN,
+  type: actions.MOVE_DOWN,
 })
 
 const store = createStore(reducer);
