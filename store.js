@@ -1,12 +1,14 @@
 const { createStore } = require('./redux.min');
 
-const MOVE_UP = 'move_up';
-const MOVE_DOWN = 'move_down';
-const SELECT = 'select';
+const actions = {
+  MOVE_UP: 'MOVE_UP',
+  MOVE_DOWN: 'MOVE_DOWN',
+  SELECT: 'SELECT'
+};
 
-const moveUp = () => ({type: MOVE_UP});
-const moveDown = () => ({type: MOVE_DOWN});
-const select = (value) => ({type: SELECT, value});
+const moveUp = () => ({type: actions.MOVE_UP});
+const moveDown = () => ({type: actions.MOVE_DOWN});
+const select = (value) => ({type: actions.SELECT, value});
 
 const initialState = {
   goods: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Garlic', 'Honey', 'Ice', 'cream', 'Jam'], 
@@ -17,7 +19,7 @@ const reducer = (state = initialState, action) => {
     const goodsClone = [...state.goods];
 
     switch (action.type) {
-      case MOVE_UP:
+      case actions.MOVE_UP:
         const deletedItemU = goodsClone.splice(state.selectedItem, 1);
 
         goodsClone.splice(state.selectedItem - 1, 0, deletedItemU[0]);
@@ -27,7 +29,7 @@ const reducer = (state = initialState, action) => {
           goods: goodsClone,
           selectedItem: state.selectedItem - 1,
         };
-      case MOVE_DOWN:
+      case actions.MOVE_DOWN:
         const deletedItemD = goodsClone.splice(state.selectedItem, 1);
 
         goodsClone.splice(state.selectedItem + 1, 0, deletedItemD[0]);
@@ -37,7 +39,7 @@ const reducer = (state = initialState, action) => {
           goods: goodsClone,
           selectedItem: state.selectedItem + 1,
         };
-      case SELECT:
+      case actions.SELECT:
         return {
           ...state,
           selectedItem: action.value,
@@ -62,5 +64,3 @@ module.export = {
   moveDown,
   select
 };
-
-
