@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <script src="./redux.min.js"></script>
+    <script src="./actions.js"></script>
+    <script src="./reducers.js"></script>
+    <script defer src="./index.js"></script>
+    <title>Foodorder</title>
+</head>
+<body>
+    <h1>Ordering food</h1>
+    <p>Here is a list of food, that you can order by manipulation buttons:</p>
+    <div class="main-container">
+        <ul id="food-container"></ul>
+        <div class="manipulator">
+            <div>
+                <button id="move-up-button">
+                    Move<br><span>&uparrow;</span><br>Up
+                </button>
+            </div>
+            <div>
+                <button id="move-down-button">
+                    Move<br><span>&downarrow;</span><br>Down
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

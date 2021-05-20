@@ -1,0 +1,141 @@
+body {
+    background-color: lightgreen;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.main-container {
+    z-index: 2;
+    width: 30%;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+}
+
+.manipulator {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.manipulator > div {
+    opacity: 0.99;
+    position: absolute;
+    z-index: 1;
+    left: -8px;
+    margin: 5px 1px;
+    display: block;
+    padding: 5px;
+    transform: scale(1);
+}
+
+.manipulator > div:nth-child(1) {
+    top: 15%;
+}
+
+.manipulator > div:nth-child(2) {
+    bottom: 15%;
+}
+
+.manipulator > div:hover {
+    z-index: 1;
+    box-shadow: 3px 0 10px darkgoldenrod;
+    transition: transform 0.1s;
+    transform: scale(1.05);
+}
+
+.manipulator > div > button {
+    z-index: 0;
+    background-color: navajowhite;
+    box-shadow: 0 0 4px white;
+}
+
+.manipulator > div > div {
+    position: absolute;
+    z-index: 1;
+}
+
+.manipulator > div:hover > button {
+    z-index: 0;
+    background-color: blanchedalmond;
+}
+
+.manipulator > div:hover > button > span {
+    visibility: visible;
+    z-index: 0;
+}
+
+.manipulator > div > button > span{
+    z-index: 0;
+    font-size: 50px;
+    display: inline-block;
+    padding: 0 0 10px;
+    visibility: hidden;
+}
+
+ul {
+    z-index: 2;
+    background-color: blanchedalmond;
+    border-radius: 30px;
+    box-shadow: 0 0 7px darkgoldenrod;
+    padding: 10px 30px;
+}
+
+li::marker {
+    display: none;
+}
+
+li {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    height: 36px;
+    box-sizing: border-box;
+    margin: 4px;
+    border-radius: 15px;
+    padding: 0 20px;
+    background-color: blanchedalmond;
+    border-style: solid;
+    border-width: 3px;
+    border-color:  blanchedalmond;
+    line-height: 32px;
+}
+
+li > span {
+    display: flex;
+    align-items: center;
+    height: 21px;
+    width: 21px;
+    line-height: 21px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 4px;
+    border-color:  blanchedalmond;
+}
+
+.selected {
+    border-style: inset;
+    border-color: cornflowerblue;
+    box-shadow: inset 2px 2px 4px #222, -1px -1px 4px 1px #fff;
+}
+
+.selected > span {
+    transition: border-width 0.3s;
+    border-width: 3px;
+    border-style: outset;
+    border-color: cornflowerblue;
+    box-shadow: 0 0 2px 1px darkslateblue, inset -1px -1px 4px 1px #fff;
+}
+
+li:hover {
+    transition: box-shadow, border-style, border-color 0.3s;
+    border-style: inset;
+    border-color: cornflowerblue;
+    box-shadow: inset 2px 2px 4px darkslateblue, -2px -2px 4px 1px #fff;
+}
+
+li:hover > span {
+    border-style: outset;
+    border-color: cornflowerblue;
+    box-shadow: 2px 2px 4px darkslateblue, inset -2px -2px 4px 1px #fff;
+}
