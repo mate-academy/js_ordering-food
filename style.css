@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+.container {
+    margin: 0 auto;
+    width: 200px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.active {
+    background: aquamarine;
+}
+
+.button {
+    border-radius: 20px;
+    width: 100px;
+}
