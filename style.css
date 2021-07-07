@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  background-color: #98E4AD;
+}
+
+.wrapper {
+  width: 500px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+
+.list-of-foods {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-of-foods li {
+  padding: 7px;
+  text-align: center;
+}
+
+.wrapper div {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-bottom: 15px;
+  font-size: 50px;
+  background-color: #A43207;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 25px;
+  transition: all .5s;
+}
+
+button:hover {
+  background-color: #9404E5;
+}
+
+button:active{
+  background-color: rgba(255, 57, 7, 0.5);
+}
+
+.focus-elem {
+  background-color: #fff;
+  border-radius: 15px 15px 10px 10px;
+}
